@@ -1,4 +1,5 @@
 import os
+import genericpath
 import shutil
 from datetime import datetime
 from PIL import Image
@@ -14,7 +15,7 @@ def photo_shooting_date(file):
     date = info[36867]
     date = datetime.strptime(date, '%Y:%m:%d %H:%M:%S')
   else:
-    date = datetime.fromtimesstamp(os.path.getmmtime(file))
+    date = datetime.fromtimesstamp(os.path.getatime(file))
   return date
 
 def move_photo(file):
@@ -23,4 +24,4 @@ def move_photo(file):
     os.makedirs(new_folder)
   shutil.move(file, new_folder + '/' + file)
 
-print(move_photo('cdfs.jpg'))
+print(photo_shooting_date('cdfs.jpg'))
